@@ -1,0 +1,10 @@
+<Application
+    x:Class="Flickr_Universal_App_Sample.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Flickr_Universal_App_Sample">
+    <Application.Resources>
+        <x:String x:Key="BingMapsKey">ZGqAfF5sJg9mQndqlasc~kwYp6OoKoqYrUI18R5cphA~AtnJMlb-h6rSDxYNLAJLWzCugkWfadQIa3KTSzzL-MoJJdI4GN0SxCnumwAq5p-T</x:String>
+        <x:String x:Key="MapServiceToken">YOUR_WP_MAP_TOKEN</x:String>
+    </Application.Resources>
+</Application>

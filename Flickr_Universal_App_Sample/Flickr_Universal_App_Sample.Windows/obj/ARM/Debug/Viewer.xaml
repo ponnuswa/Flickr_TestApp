@@ -1,0 +1,51 @@
+﻿<Page
+    x:Class="Flickr_Universal_App_Sample.Viewer"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Flickr_Universal_App_Sample"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <DataTemplate x:Key="ImageTemplate">
+            <Grid>
+                <Image Source="{Binding Original}" Stretch="UniformToFill"/>
+                <Border Background="#A5000000" Height="80" VerticalAlignment="Top">
+                    <TextBlock Text="{Binding title}" FontFamily="Segoe UI" FontSize="26.667" Foreground="#CCFFFFFF" Padding="15,20"/>
+                </Border>
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
+        
+        <Page.BottomAppBar>
+    <AppBar x:ConnectionId='1'                       >
+        <Grid>
+            
+            <StackPanel x:Name="LeftPanel" Orientation="Horizontal" Grid.Column="0" HorizontalAlignment="Left">
+                <AppBarButton x:ConnectionId='2' x:Uid="Back" Icon="Back" Label="Back" x:Name="BackButton"                         />
+                    <AppBarSeparator/>
+                    <AppBarButton x:ConnectionId='3' x:Uid="Map" Icon="Map" Label="Map" x:Name="MapButton"  Visibility="Collapsed"                        />
+                </StackPanel>
+            
+        </Grid>
+    </AppBar>
+    </Page.BottomAppBar>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <FlipView x:Name="FlipView3" BorderBrush="Black" BorderThickness="1">
+            <FlipView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </FlipView.ItemsPanel>
+        </FlipView>
+    </Grid>
+    <VisualStateManager.VisualStateGroups>
+        <VisualStateGroup>
+            <VisualState x:Name="DefaultLayout"/>
+            <VisualState x:Name="Below768Layout"/>
+        </VisualStateGroup>
+    </VisualStateManager.VisualStateGroups>
+</Page>
+

@@ -1,0 +1,1 @@
+C:\Users\ponnuswa\documents\visual studio 2013\Projects\Flickr_Universal_App_Sample\Flickr_Universal_App_Sample\Flickr_Universal_App_Sample.WindowsPhone\Flickr_Universal_App_Sample.WindowsPhone.csproj;arm
