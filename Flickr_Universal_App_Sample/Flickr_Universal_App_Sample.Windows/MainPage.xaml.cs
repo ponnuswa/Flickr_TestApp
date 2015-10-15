@@ -205,7 +205,29 @@ namespace Flickr_Universal_App_Sample
             }
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        
+
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (SerachBoxContainer.Visibility == Windows.UI.Xaml.Visibility.Collapsed)
+            {
+                SerachBoxContainer.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            }
+            else
+            {
+                SerachBoxContainer.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+                SearchTextBox.Text = string.Empty;
+                App.viewModel.Locked = false;
+                GridViewMain.ItemsSource = new ItemsToShow(App.viewModel);
+            }
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            App.Current.Exit();
+        }
+
+        private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             TextBox s = (TextBox)sender;
             if (s.Text.Length > 0)
@@ -226,27 +248,6 @@ namespace Flickr_Universal_App_Sample
                 App.viewModel.Locked = false;
                 GridViewMain.ItemsSource = new ItemsToShow(App.viewModel);
             }
-
-        }
-
-        private void SearchButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (SearchTextBox.Visibility == Windows.UI.Xaml.Visibility.Collapsed)
-            {
-                SearchTextBox.Visibility = Windows.UI.Xaml.Visibility.Visible;
-            }
-            else
-            {
-                SearchTextBox.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-                SearchTextBox.Text = string.Empty;
-                App.viewModel.Locked = false;
-                GridViewMain.ItemsSource = new ItemsToShow(App.viewModel);
-            }
-        }
-
-        private void BackButton_Click(object sender, RoutedEventArgs e)
-        {
-            App.Current.Exit();
         }
 
     }

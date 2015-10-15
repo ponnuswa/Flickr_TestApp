@@ -20,9 +20,12 @@
     </Page.BottomAppBar>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock Text="Loading. Please wait a moment" x:Name="StatusLabel" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="25"></TextBlock>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="Loading. Please wait a moment" x:Name="StatusLabel" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="25"></TextBlock>
         <WebView Grid.Row="0" x:Name="webviewer" NavigationCompleted="webviewer_NavigationCompleted" Visibility="Collapsed"></WebView>
-        <GridView x:Name="GridViewMain" Margin="0,100,0,0" Padding="100,0,0,10" Visibility="Collapsed" SelectionChanged="GridViewMain_SelectionChanged">
+        <GridView Grid.Row="0" x:Name="GridViewMain" Margin="0,100,0,0" Padding="100,0,0,10" Visibility="Collapsed" SelectionChanged="GridViewMain_SelectionChanged">
             <GridView.Resources>
                 <DataTemplate x:Key="DataTemplateGridViewMain">
                     <Grid Width="150" Height="150" Background="#FF7C1A9B">
@@ -44,7 +47,9 @@
                 <StaticResource ResourceKey="DataTemplateGridViewMain"/>
             </GridView.ItemTemplate>
         </GridView>
-        <TextBox x:Name="SearchTextBox" TextChanged="TextBox_TextChanged" Width="200" Height="40"  Visibility="Collapsed" VerticalAlignment="Top" FontSize="25" VerticalContentAlignment="Center"></TextBox>
-        <Button x:Name="FetchPhotos" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="FetchImages" Height="100" Width="200" Click="FetchPhotos_Click" Visibility="Collapsed" />
+        <Border x:Name="SerachBoxContainer" CornerRadius="10" Width="300" Height="80" VerticalAlignment="Top" Visibility="Collapsed" Margin="0,10">
+            <TextBox x:Name="SearchTextBox" TextChanged="SearchTextBox_TextChanged" Height="50" FontSize="25" Text="" VerticalContentAlignment="Top"></TextBox>
+        </Border>
+        <Button x:Name="FetchPhotos" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="FetchImages" Height="100" Width="200" Click="FetchPhotos_Click" Visibility="Collapsed" />
     </Grid>
 </Page>
