@@ -136,13 +136,16 @@ namespace Flickr_Universal_App_Sample
 
         private async void dispatcherTimer_Tick(object sender, object e)
         {
+            if (dispatcherTimer != null)
+            {
+                dispatcherTimer.Stop();
+            }
             Photo item = await App.viewModel.Data.photos.photo[FlipView3.SelectedIndex].InitiateGeoFetch();
             if (item.id == App.viewModel.Data.photos.photo[FlipView3.SelectedIndex].id)
             {
                 if (item.Geo() != null && item.Geo().isValid)
                     MapButton.Visibility = Windows.UI.Xaml.Visibility.Visible;
             }
-            dispatcherTimer.Stop();
         }
     }
 
