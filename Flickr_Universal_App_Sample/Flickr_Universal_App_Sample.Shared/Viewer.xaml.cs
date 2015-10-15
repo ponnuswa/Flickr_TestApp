@@ -29,10 +29,28 @@ namespace Flickr_Universal_App_Sample
             this.InitializeComponent();
             Current = this;
             FlipView3.SelectionChanged += FlipView3_SelectionChanged;
-#if WINDOWS_PHONE_APP
-            BackButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-#endif
+            this.Loaded += Viewer_Loaded;
         }
+
+        async void Viewer_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.Loaded -= Viewer_Loaded;
+            GeoInfo geo = await App.viewModel.Data.photos.photo[FlipView3.SelectedIndex].Geo();
+            if (geo.isValid)
+                MapButton.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            else
+                MapButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+        }
+
+#if WINDOWS_PHONE_APP
+        void HardwareButtons_BackPressed(object sender, Windows.Phone.UI.Input.BackPressedEventArgs e)
+        {
+            e.Handled = true;
+            Windows.Phone.UI.Input.HardwareButtons.BackPressed -= HardwareButtons_BackPressed;
+            // Navigate to a page
+            this.Frame.GoBack();
+        }
+#endif
 
         async void FlipView3_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -47,7 +65,19 @@ namespace Flickr_Universal_App_Sample
             FlipView3.ItemTemplateSelector = new ItemSelector();
             FlipView3.ItemsSource = App.viewModel.Data.photos.photo;
             FlipView3.SelectedIndex = App.viewModel.SelectedIndex;
+#if WINDOWS_PHONE_APP
+            BackButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            Windows.Phone.UI.Input.HardwareButtons.BackPressed += HardwareButtons_BackPressed;
+#endif
             base.OnNavigatedTo(e);
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+#if WINDOWS_PHONE_APP
+            Windows.Phone.UI.Input.HardwareButtons.BackPressed -= HardwareButtons_BackPressed;
+#endif
+            base.OnNavigatedFrom(e);
         }
 
 
@@ -58,11 +88,7 @@ namespace Flickr_Universal_App_Sample
 
         private async void AppBar_Opened(object sender, object e)
         {
-            GeoInfo geo = await App.viewModel.Data.photos.photo[FlipView3.SelectedIndex].Geo();
-            if (geo.isValid)
-                MapButton.Visibility = Windows.UI.Xaml.Visibility.Visible;
-            else
-                MapButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+
         }
 
         private void MapButton_Click(object sender, RoutedEventArgs e)

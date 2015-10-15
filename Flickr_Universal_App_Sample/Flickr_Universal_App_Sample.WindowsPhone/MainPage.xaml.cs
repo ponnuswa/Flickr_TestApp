@@ -68,10 +68,10 @@ namespace Flickr_Universal_App_Sample
                 List<Photo> tmpList = await baseModel.FetchMoreData();
 
                 int minVal = Convert.ToInt32(Math.Min(count, tmpList.Count));
-                    for (int i = 0; i < minVal; i++)
-                    {
-                        items.Add(tmpList[i]);
-                    }
+                for (int i = 0; i < minVal; i++)
+                {
+                    items.Add(tmpList[i]);
+                }
 
                 await coreDispatcher.RunAsync(CoreDispatcherPriority.Normal,
                     () =>
@@ -96,18 +96,13 @@ namespace Flickr_Universal_App_Sample
     {
         private bool ignoreSelection = false;
 
-
-        
-        
         public MainPage()
         {
             this.InitializeComponent();
             this.Loaded += MainPage_Loaded;
         }
 
-
-
-        #if WINDOWS_PHONE_APP
+#if WINDOWS_PHONE_APP
         void HardwareButtons_BackPressed(object sender, Windows.Phone.UI.Input.BackPressedEventArgs e)
         {
             e.Handled = true;
@@ -123,7 +118,6 @@ namespace Flickr_Universal_App_Sample
             if (!App.flickr.IsInitialised)
             {
                 await App.flickr.Initialise();
-                webviewer.Visibility = Windows.UI.Xaml.Visibility.Visible;
                 LaunchBrowserForLogin();
             }
         }
@@ -157,31 +151,17 @@ namespace Flickr_Universal_App_Sample
 
         async void LaunchBrowserForLogin()
         {
-            //webviewer.Navigate(new Uri(App.flickr.GetAuthenticationLink()));
             Launcher.LaunchUriAsync(new Uri(App.flickr.GetAuthenticationLink()));
             dispatcherTimer = new DispatcherTimer();
-            dispatcherTimer.Tick += new EventHandler<object>(dispatcherTimer_Tick); 
+            dispatcherTimer.Tick += new EventHandler<object>(dispatcherTimer_Tick);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 20);
             dispatcherTimer.Start();
-
-            //if (await App.flickr.GetToken())
-            //{
-            //    webviewer.Visibility = Visibility.Collapsed;
-            //    GridViewMain.Visibility = Windows.UI.Xaml.Visibility.Visible;
-            //    FetchPhotos.Visibility = Windows.UI.Xaml.Visibility.Visible;
-            //    StatusLabel.Text = "Ready! Fetch all public photos";
-            //}
-            //else
-            //{
-            //    StatusLabel.Text = "Trouble in Authentication";
-            //}
         }
 
         private async void dispatcherTimer_Tick(object sender, object e)
         {
             if (await App.flickr.GetToken())
             {
-                webviewer.Visibility = Visibility.Collapsed;
                 GridViewMain.Visibility = Windows.UI.Xaml.Visibility.Visible;
                 FetchPhotos.Visibility = Windows.UI.Xaml.Visibility.Visible;
                 StatusLabel.Text = "Ready! Fetch all public photos";
@@ -195,24 +175,6 @@ namespace Flickr_Universal_App_Sample
         }
 
 
-        private async void webviewer_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
-        {
-            if (args.Uri.AbsoluteUri.ToLower() == "https://www.flickr.com/services/auth/")
-            {
-                if (await App.flickr.GetToken())
-                {
-                    webviewer.Visibility = Visibility.Collapsed;
-                    GridViewMain.Visibility = Windows.UI.Xaml.Visibility.Visible;
-                    FetchPhotos.Visibility = Windows.UI.Xaml.Visibility.Visible;
-                    StatusLabel.Text = "Ready! Fetch all public photos";
-                }
-                else
-                {
-                    StatusLabel.Text = "Trouble in Authentication";
-                }
-            }
-        }
-        
         private async void FetchPhotos_Click(object sender, RoutedEventArgs e)
         {
             if (!App.viewModel.IsInitialised)
@@ -220,6 +182,7 @@ namespace Flickr_Universal_App_Sample
                 if (await App.viewModel.InitialisePhotosList())
                 {
                     GridViewMain.ItemsSource = new ItemsToShow(App.viewModel);
+                    FetchPhotos.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
                 }
             }
         }

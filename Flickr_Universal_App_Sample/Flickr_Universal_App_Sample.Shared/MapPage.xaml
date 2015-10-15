@@ -10,7 +10,7 @@
     <Page.BottomAppBar>
         <CommandBar>
             <CommandBar.PrimaryCommands>
-                    <AppBarButton x:Uid="Back" Icon="Back" Label="Back" x:Name="BackButton" Click="BackButton_Click"/>
+                <AppBarButton x:Uid="Back" Icon="Back" Label="Back" x:Name="BackButton" Click="BackButton_Click"/>
             </CommandBar.PrimaryCommands>
         </CommandBar>
     </Page.BottomAppBar>

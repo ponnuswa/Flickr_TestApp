@@ -27,13 +27,40 @@ namespace Flickr_Universal_App_Sample
         {
             this.InitializeComponent();
             this.Loaded += MapPage_Loaded;
+
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
 #if WINDOWS_PHONE_APP
             BackButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            Windows.Phone.UI.Input.HardwareButtons.BackPressed += HardwareButtons_BackPressed;
 #endif
+            base.OnNavigatedTo(e);
         }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+#if WINDOWS_PHONE_APP
+            Windows.Phone.UI.Input.HardwareButtons.BackPressed -= HardwareButtons_BackPressed;
+#endif
+            base.OnNavigatedFrom(e);
+        }
+
+#if WINDOWS_PHONE_APP
+        void HardwareButtons_BackPressed(object sender, Windows.Phone.UI.Input.BackPressedEventArgs e)
+        {
+            e.Handled = true;
+            Windows.Phone.UI.Input.HardwareButtons.BackPressed -= HardwareButtons_BackPressed;
+            // Navigate to a page
+            this.Frame.GoBack();
+
+        }
+#endif
 
         async void MapPage_Loaded(object sender, RoutedEventArgs e)
         {
+            this.Loaded -= MapPage_Loaded;
             GeoInfo geo = await App.viewModel.SelectedItem.Geo();
             MyMap.SetView(new BasicGeoposition() { Latitude = geo.latitude, Longitude = geo.longitude }, 11);
             MyMap.AddPushpin(new BasicGeoposition() { Latitude = geo.latitude, Longitude = geo.longitude }, geo.locality);

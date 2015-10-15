@@ -19,11 +19,11 @@
     </Page.Resources>
 
     <Page.BottomAppBar>
-        <CommandBar Opened="AppBar_Opened" HorizontalAlignment="Center">
+        <CommandBar Opened="AppBar_Opened">
             <CommandBar.PrimaryCommands>
-                        <AppBarButton x:Uid="Back" Icon="Back" Label="Back" x:Name="BackButton" Click="BackButton_Click"/>
-                        
-                        <AppBarButton x:Uid="Map" Icon="Map" Label="Map" x:Name="MapButton"  Visibility="Collapsed" Click="MapButton_Click"/>
+                <AppBarButton x:Uid="Back" Icon="Back" Label="Back" x:Name="BackButton" Click="BackButton_Click"/>
+
+                <AppBarButton x:Uid="Map" Icon="Map" Label="Map" x:Name="MapButton"  Visibility="Collapsed" Click="MapButton_Click"/>
 
             </CommandBar.PrimaryCommands>
         </CommandBar>

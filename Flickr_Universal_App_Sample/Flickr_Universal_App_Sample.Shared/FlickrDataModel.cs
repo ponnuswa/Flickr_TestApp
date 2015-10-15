@@ -8,18 +8,6 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace Flickr_Universal_App_Sample
 {
-//    { "photo": 
-//{ "id": "21537066543", 
-//    "location": { "latitude": 64.149855, "longitude": -21.931231, "accuracy": 16, "context": 0, 
-//      "locality": { "_content": "Reykjavik", "place_id": "PGxy3mRYWrpnp5g", "woeid": "980389" }, 
-//      "region": { "_content": "Reykjavik", "place_id": "9RNUBA9TUrpJ8bGVUw", "woeid": "20070109" }, 
-//      "country": { "_content": "Iceland", "place_id": "jPn7LAVTUb5tyPnsog", "woeid": "23424845" }, 
-//    "place_id": "PGxy3mRYWrpnp5g", "woeid": "980389" } }, "stat": "ok" }
-
-    public class PlaceInfo
-    {
-
-    }
     public class FlickrData
     {
         //"photos": {...}, "stat": "ok"
@@ -85,11 +73,11 @@ namespace Flickr_Universal_App_Sample
         private GeoInfo _geo = null;
         public async Task<GeoInfo> Geo()
         {
-                if (_geo == null)
-                {
-                    _geo = await App.flickr.GetGeoInfo(id);
-                }
-                return _geo;
+            if (_geo == null)
+            {
+                _geo = await App.flickr.GetGeoInfo(id);
+            }
+            return _geo;
         }
 
         private const string PhotoUrlFormat = "https://farm{0}.staticflickr.com/{1}/{2}_{3}{4}.{5}";
@@ -225,7 +213,8 @@ namespace Flickr_Universal_App_Sample
 
         public Photo SelectedItem
         {
-            get {
+            get
+            {
                 return Data.photos.photo[SelectedIndex];
             }
         }

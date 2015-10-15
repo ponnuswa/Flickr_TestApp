@@ -45,7 +45,9 @@ namespace Flickr_Universal_App_Sample
             parameters.Add("api_sig", sig);
 
 #if WINDOWS_PHONE_APP
-            return "https://m.flickr.com/services/auth/?mobile=1&api_key=408ab0f2f19de2a38e0162275be1a6d5&perms=read&api_sig=f68b251ec306ff21c59baa35ddf5e794";
+            return "https://m.flickr.com/services/auth/" + "?" + Utility.BuildString(parameters);
+            //?mobile=1&api_key=408ab0f2f19de2a38e0162275be1a6d5&perms=read&api_sig=f68b251ec306ff21c59baa35ddf5e794";
+            //return "https://m.flickr.com/auth-72157659761175285";
 #else
             return "http://flickr.com/services/auth/" + "?" + Utility.BuildString(parameters);
 #endif
@@ -91,11 +93,11 @@ namespace Flickr_Universal_App_Sample
                 data.longitude = Convert.ToDouble((string)element.Attribute("longitude"));
                 data.accuracy = Convert.ToInt32((string)element.Attribute("accuracy"));
                 data.locality = doc.Descendants(XName.Get("locality")).FirstOrDefault().Value;
-                
+
                 data.isValid = true;
             }
             return data;
-         }
+        }
 
         public async Task<string> GetPhotos(int pageNo = 1)
         {
@@ -107,7 +109,7 @@ namespace Flickr_Universal_App_Sample
             parameters.Add("format", "json");
             parameters.Add("nojsoncallback", "1");
             parameters.Add("auth_token", _authtoken);
-            //parameters.Add("has_geo", "1");
+            parameters.Add("has_geo", "1");
             if (pageNo > 1)
             {
                 parameters.Add("page", pageNo.ToString());
@@ -123,7 +125,7 @@ namespace Flickr_Universal_App_Sample
             return webresponse;
         }
 
-#region PRIVATE_FUNCTIONS
+        #region PRIVATE_FUNCTIONS
         private async Task<bool> auth_getfrob()
         {
             Dictionary<string, string> parameters = new Dictionary<string, string>();
@@ -167,7 +169,7 @@ namespace Flickr_Universal_App_Sample
             userid = (string)element.Attribute("nsid");
             return true;
         }
-#endregion
+        #endregion
 
     }
 }

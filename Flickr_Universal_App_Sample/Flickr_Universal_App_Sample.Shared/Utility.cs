@@ -52,50 +52,5 @@ namespace Flickr_Universal_App_Sample
             return sb.ToString();
         }
 
-        //private const string PhotoUrlFormat = "https://farm{0}.staticflickr.com/{1}/{2}_{3}{4}.{5}";
-
-        //internal static string UrlFormat(Photo p, string size, string extension)
-        //{
-        //    if (size == "_o" || size == "original")
-        //        return UrlFormat(p.farm, p.server, p.id, p.secret, size, extension);
-        //    else
-        //        return UrlFormat(p.farm, p.server, p.id, p.secret, size, extension);
-        //}
-
-        //internal static string UrlFormat(string farm, string server, string photoid, string secret, string size, string extension)
-        //{
-        //    string sizeAbbreviation;
-        //    switch (size)
-        //    {
-        //        case "square":
-        //            sizeAbbreviation = "_s";
-        //            break;
-        //        case "thumbnail":
-        //            sizeAbbreviation = "_t";
-        //            break;
-        //        case "small":
-        //            sizeAbbreviation = "_m";
-        //            break;
-        //        case "large":
-        //            sizeAbbreviation = "_b";
-        //            break;
-        //        case "original":
-        //            sizeAbbreviation = "_o";
-        //            break;
-        //        case "medium":
-        //            sizeAbbreviation = string.Empty;
-        //            break;
-        //        default:
-        //            sizeAbbreviation = size;
-        //            break;
-        //    }
-
-        //    return UrlFormat(PhotoUrlFormat, farm, server, photoid, secret, sizeAbbreviation, extension);
-        //}
-
-        //private static string UrlFormat(string format, params object[] parameters)
-        //{
-        //    return String.Format(System.Globalization.CultureInfo.InvariantCulture, format, parameters);
-        //}
     }
 }
