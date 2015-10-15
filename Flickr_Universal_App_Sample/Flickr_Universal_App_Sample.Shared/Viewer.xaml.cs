@@ -24,6 +24,7 @@ namespace Flickr_Universal_App_Sample
     {
         public static Viewer Current;
         private bool ignoreSelectionChanged = true;
+        private DispatcherTimer dispatcherTimer;
 
         public Viewer()
         {
@@ -33,14 +34,19 @@ namespace Flickr_Universal_App_Sample
             this.Loaded += Viewer_Loaded;
         }
 
-        async void Viewer_Loaded(object sender, RoutedEventArgs e)
+        void Viewer_Loaded(object sender, RoutedEventArgs e)
         {
             this.Loaded -= Viewer_Loaded;
-            GeoInfo geo = await App.viewModel.Data.photos.photo[FlipView3.SelectedIndex].Geo();
-            if (geo.isValid)
-                MapButton.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            GeoInfo geo = App.viewModel.Data.photos.photo[FlipView3.SelectedIndex].Geo();
+            if (geo == null)
+            {
+                dispatcherTimer.Start();
+            }
             else
-                MapButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            {
+                if (geo.isValid)
+                    MapButton.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            }
             ignoreSelectionChanged = false;
         }
 
@@ -54,7 +60,7 @@ namespace Flickr_Universal_App_Sample
         }
 #endif
 
-        async void FlipView3_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        void FlipView3_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (!ignoreSelectionChanged)
             {
@@ -62,9 +68,19 @@ namespace Flickr_Universal_App_Sample
                 {
                     App.viewModel.SelectedIndex = FlipView3.SelectedIndex;
                     MapButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-                    GeoInfo geo = await App.viewModel.Data.photos.photo[FlipView3.SelectedIndex].Geo();
-                    if (geo.isValid)
-                        MapButton.Visibility = Windows.UI.Xaml.Visibility.Visible;
+                    GeoInfo geo = App.viewModel.Data.photos.photo[FlipView3.SelectedIndex].Geo();
+                    if (geo == null)
+                    {
+                        //If flicking thro pics then dont request for geo info of the picture
+                        //Start a timer
+                        dispatcherTimer.Stop();
+                        dispatcherTimer.Start();
+                    }
+                    else
+                    {
+                        if (geo.isValid)
+                            MapButton.Visibility = Windows.UI.Xaml.Visibility.Visible;
+                    }
                 }
             }
         }
@@ -78,11 +94,24 @@ namespace Flickr_Universal_App_Sample
             BackButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             Windows.Phone.UI.Input.HardwareButtons.BackPressed += HardwareButtons_BackPressed;
 #endif
+            if (dispatcherTimer == null)
+            {
+                dispatcherTimer = new DispatcherTimer();
+                dispatcherTimer.Tick += new EventHandler<object>(dispatcherTimer_Tick);
+                dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+            }
+
             base.OnNavigatedTo(e);
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
+            if (dispatcherTimer != null)
+            {
+                dispatcherTimer.Stop();
+                dispatcherTimer.Tick -= dispatcherTimer_Tick;
+                dispatcherTimer = null;
+            }
 #if WINDOWS_PHONE_APP
             Windows.Phone.UI.Input.HardwareButtons.BackPressed -= HardwareButtons_BackPressed;
 #endif
@@ -103,6 +132,17 @@ namespace Flickr_Universal_App_Sample
         private void MapButton_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(MapPage));
+        }
+
+        private async void dispatcherTimer_Tick(object sender, object e)
+        {
+            Photo item = await App.viewModel.Data.photos.photo[FlipView3.SelectedIndex].InitiateGeoFetch();
+            if (item.id == App.viewModel.Data.photos.photo[FlipView3.SelectedIndex].id)
+            {
+                if (item.Geo() != null && item.Geo().isValid)
+                    MapButton.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            }
+            dispatcherTimer.Stop();
         }
     }
 

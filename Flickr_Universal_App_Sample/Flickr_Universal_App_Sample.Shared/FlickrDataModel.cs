@@ -71,14 +71,18 @@ namespace Flickr_Universal_App_Sample
         }
 
         private GeoInfo _geo = null;
-        public async Task<GeoInfo> Geo()
+        public GeoInfo Geo()
         {
-            if (_geo == null)
-            {
-                _geo = await App.flickr.GetGeoInfo(id);
-            }
             return _geo;
         }
+        public async Task<Photo> InitiateGeoFetch()
+        {
+            if (this._geo == null)
+            {
+                this._geo = await App.flickr.GetGeoInfo(id);
+            }
+            return this;
+        } 
 
         private const string PhotoUrlFormat = "https://farm{0}.staticflickr.com/{1}/{2}_{3}{4}.{5}";
 

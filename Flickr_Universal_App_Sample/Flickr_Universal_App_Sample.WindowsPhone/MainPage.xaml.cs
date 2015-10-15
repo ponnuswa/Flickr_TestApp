@@ -90,6 +90,7 @@ namespace Flickr_Universal_App_Sample
     public sealed partial class MainPage : Page
     {
         private bool ignoreSelection = false;
+        private DispatcherTimer dispatcherTimer;
 
         public MainPage()
         {
@@ -142,7 +143,6 @@ namespace Flickr_Universal_App_Sample
 #endif
             base.OnNavigatedTo(e);
         }
-        private DispatcherTimer dispatcherTimer;
 
         void LaunchBrowserForLogin()
         {

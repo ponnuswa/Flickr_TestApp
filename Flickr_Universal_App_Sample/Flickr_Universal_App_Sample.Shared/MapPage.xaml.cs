@@ -59,10 +59,10 @@ namespace Flickr_Universal_App_Sample
         }
 #endif
 
-        async void MapPage_Loaded(object sender, RoutedEventArgs e)
+        void MapPage_Loaded(object sender, RoutedEventArgs e)
         {
             this.Loaded -= MapPage_Loaded;
-            GeoInfo geo = await App.viewModel.SelectedItem.Geo();
+            GeoInfo geo = App.viewModel.SelectedItem.Geo();
             MyMap.SetView(new BasicGeoposition() { Latitude = geo.latitude, Longitude = geo.longitude }, 11);
             MyMap.AddPushpin(new BasicGeoposition() { Latitude = geo.latitude, Longitude = geo.longitude }, geo.locality);
         }
