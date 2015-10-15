@@ -60,7 +60,11 @@ namespace Flickr_Universal_App_Sample
             {
                 if (FlipView3.SelectedIndex != -1)
                 {
-                    await App.viewModel.Data.photos.photo[FlipView3.SelectedIndex].Geo();
+                    App.viewModel.SelectedIndex = FlipView3.SelectedIndex;
+                    MapButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+                    GeoInfo geo = await App.viewModel.Data.photos.photo[FlipView3.SelectedIndex].Geo();
+                    if (geo.isValid)
+                        MapButton.Visibility = Windows.UI.Xaml.Visibility.Visible;
                 }
             }
         }
@@ -91,7 +95,7 @@ namespace Flickr_Universal_App_Sample
             this.Frame.GoBack();
         }
 
-        private async void AppBar_Opened(object sender, object e)
+        private void AppBar_Opened(object sender, object e)
         {
 
         }

@@ -144,7 +144,7 @@ namespace Flickr_Universal_App_Sample
         }
         private DispatcherTimer dispatcherTimer;
 
-        async void LaunchBrowserForLogin()
+        void LaunchBrowserForLogin()
         {
             Launcher.LaunchUriAsync(new Uri(App.flickr.GetAuthenticationLink()));
             dispatcherTimer = new DispatcherTimer();

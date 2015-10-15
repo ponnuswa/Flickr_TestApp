@@ -52,6 +52,7 @@ namespace Flickr_Universal_App_Sample
         {
             e.Handled = true;
             Windows.Phone.UI.Input.HardwareButtons.BackPressed -= HardwareButtons_BackPressed;
+            MyMap.ClearMap();
             // Navigate to a page
             this.Frame.GoBack();
 
