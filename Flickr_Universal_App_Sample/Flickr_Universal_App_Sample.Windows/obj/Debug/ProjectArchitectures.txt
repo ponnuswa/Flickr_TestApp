@@ -1,1 +1,0 @@
-c:\users\ponnuswa\documents\visual studio 2013\Projects\Flickr_Universal_App_Sample\Flickr_Universal_App_Sample\Flickr_Universal_App_Sample.Windows\Flickr_Universal_App_Sample.Windows.csproj;neutral

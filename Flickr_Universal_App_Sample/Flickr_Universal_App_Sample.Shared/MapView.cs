@@ -244,7 +244,7 @@ namespace Flickr_Universal_App_Sample
             #if WINDOWS_APP
             var pin = new Pushpin()
             {
-                Text = text, Width = 100
+                Text = text
             };
             MapLayer.SetPosition(pin, location.ToLocation());
             _pinLayer.Children.Add(pin);

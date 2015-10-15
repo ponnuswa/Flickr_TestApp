@@ -1,8 +1,0 @@
-<XamlCompilerSaveState>
-  <ReferenceAssemblyList>
-    <LocalAssembly PathName="c:\users\ponnuswa\documents\visual studio 2013\projects\flickr_universal_app_sample\flickr_universal_app_sample\flickr_universal_app_sample.windows\obj\arm\debug\intermediatexaml\flickr_universal_app_sample.windows.exe" HashGuid="52c988fb-d28d-ca97-a525-2e5079a7bc02" />
-    <ReferenceAssembly PathName="c:\users\ponnuswa\appdata\local\microsoft sdks\windows\v8.1\extensionsdks\bing.maps.xaml\1.313.0825.0\references\commonconfiguration\neutral\bing.maps.winmd" HashGuid="dcdce9e5-521a-6d20-3956-9df814dff813" />
-    <ReferenceAssembly PathName="c:\program files (x86)\microsoft sdks\windows\v8.1\extensionsdks\microsoft.vclibs\12.0\references\commonconfiguration\neutral\platform.winmd" HashGuid="58b6b6d1-928e-9908-9804-eb460e5e101b" />
-    <ReferenceAssembly PathName="c:\users\ponnuswa\documents\github\flickr_testapp\packages\newtonsoft.json.7.0.1\lib\portable-net40+sl5+wp80+win8+wpa81\newtonsoft.json.dll" HashGuid="0b4cdfc1-2257-2e75-23cf-4052e97b309e" />
-  </ReferenceAssemblyList>
-</XamlCompilerSaveState>

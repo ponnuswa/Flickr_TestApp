@@ -109,7 +109,6 @@ namespace Flickr_Universal_App_Sample
             parameters.Add("format", "json");
             parameters.Add("nojsoncallback", "1");
             parameters.Add("auth_token", _authtoken);
-            parameters.Add("has_geo", "1");
             if (pageNo > 1)
             {
                 parameters.Add("page", pageNo.ToString());
