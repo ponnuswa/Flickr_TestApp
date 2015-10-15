@@ -179,10 +179,15 @@ namespace Flickr_Universal_App_Sample
         {
             if (!App.viewModel.IsInitialised)
             {
+                FetchPhotos.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
                 if (await App.viewModel.InitialisePhotosList())
                 {
                     GridViewMain.ItemsSource = new ItemsToShow(App.viewModel);
-                    FetchPhotos.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+                    StatusLabel.Text = "";
+                }
+                else
+                {
+                    StatusLabel.Text = "Trouble. Close and try again.";
                 }
             }
         }

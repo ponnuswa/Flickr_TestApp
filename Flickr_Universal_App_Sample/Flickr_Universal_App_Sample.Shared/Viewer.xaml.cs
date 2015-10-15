@@ -23,6 +23,7 @@ namespace Flickr_Universal_App_Sample
     public sealed partial class Viewer : Page
     {
         public static Viewer Current;
+        private bool ignoreSelectionChanged = true;
 
         public Viewer()
         {
@@ -40,6 +41,7 @@ namespace Flickr_Universal_App_Sample
                 MapButton.Visibility = Windows.UI.Xaml.Visibility.Visible;
             else
                 MapButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            ignoreSelectionChanged = false;
         }
 
 #if WINDOWS_PHONE_APP
@@ -54,9 +56,12 @@ namespace Flickr_Universal_App_Sample
 
         async void FlipView3_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (FlipView3.SelectedIndex != -1)
+            if (!ignoreSelectionChanged)
             {
-                await App.viewModel.Data.photos.photo[FlipView3.SelectedIndex].Geo();
+                if (FlipView3.SelectedIndex != -1)
+                {
+                    await App.viewModel.Data.photos.photo[FlipView3.SelectedIndex].Geo();
+                }
             }
         }
 

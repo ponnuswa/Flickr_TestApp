@@ -68,6 +68,7 @@ namespace Flickr_Universal_App_Sample
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
+            MyMap.ClearMap();
             this.Frame.GoBack();
         }
     }

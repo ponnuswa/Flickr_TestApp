@@ -251,7 +251,7 @@ namespace Flickr_Universal_App_Sample
             #elif WINDOWS_PHONE_APP
             var pin = new Grid()
             {
-                Width = 24,
+                Width = 100,
                 Height = 24,
                 Margin = new Windows.UI.Xaml.Thickness(-12)
             };
@@ -264,12 +264,13 @@ namespace Flickr_Universal_App_Sample
                 Width = 24,
                 Height = 24
             });
-
             pin.Children.Add(new TextBlock()
             {
                 Text = text,
+                Width = 80,
                 FontSize = 12,
-                Foreground = new SolidColorBrush(Colors.White),
+                FontWeight = Windows.UI.Text.FontWeights.Bold,
+                Foreground = new SolidColorBrush(Colors.Red),
                 HorizontalAlignment = Windows.UI.Xaml.HorizontalAlignment.Center,
                 VerticalAlignment = Windows.UI.Xaml.VerticalAlignment.Center
             });
